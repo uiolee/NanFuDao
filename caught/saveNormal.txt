@@ -1,0 +1,111 @@
+https://yfd.ly-sky.com/ly-pd-mb/form/api/answerSheet/saveNormal
+
+request_headers
+
+POST /ly-pd-mb/form/api/answerSheet/saveNormal HTTP/1.1
+Host: yfd.ly-sky.com
+Connection: keep-alive
+Content-Length: 1384
+accessToken: ******/+************************************************************************+**********************************************************/**********==
+content-type: application/json
+userAuthType: MS
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/559.2.01 (KHTML, like Gecko) Mobile/12E122 MicroMessenger/7.2.9(0x23684219) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx217628c7eb8ec43c/20/page-frame.html
+
+request_body
+
+{
+    "questionnairePublishEntityId": "1001640966400655001540000000001",
+    "answerInfoList": [{
+            "subjectId": "1001640315554537000980000000001",
+            "subjectType": "multiSelect",
+            "multiSelect": {
+                "optionAnswerList": [{
+                        "beSelectValue": "NotThing",
+                        "fillContent": ""
+                    }
+                ]
+            }
+        }, {
+            "subjectId": "1001640315554577000980000000001",
+            "subjectType": "location",
+            "location": {
+                "deviationDistance": xxx,
+                "locationRangeId": "1001640054768198000150000000001",
+                "address": "xx省xx市xx区xx路",
+                "city": "xx市",
+                "province": "xx省",
+                "area": "xx区",
+                "latitude": 23.842442983598957,
+                "longitude": 121.0333584687499
+            }
+        }, {
+            "subjectId": "1001640743741123000960000000001",
+            "subjectType": "signleSelect",
+            "signleSelect": {
+                "beSelectValue": "flag1640743720931",
+                "fillContent": ""
+            }
+        }, {
+            "subjectId": "1001640743758116001000000000001",
+            "subjectType": "signleSelect",
+            "signleSelect": {
+                "beSelectValue": "2",
+                "fillContent": ""
+            }
+        }, {
+            "subjectId": "1001640743801628001000000000001",
+            "subjectType": "simpleFill",
+            "simpleFill": {
+                "inputContent": "无",
+                "imgList": []
+            }
+        }, {
+            "subjectId": "1001640743816621000960000000001",
+            "subjectType": "simpleFill",
+            "simpleFill": {
+                "inputContent": "无",
+                "imgList": []
+            }
+        }, {
+            "subjectId": "1001640743859737000980000000001",
+            "subjectType": "signleSelect",
+            "signleSelect": {
+                "beSelectValue": "1",
+                "fillContent": ""
+            }
+        }, {
+            "subjectId": "1001640956029680001500000000001",
+            "subjectType": "signleSelect",
+            "signleSelect": {
+                "beSelectValue": "flag1640956000651",
+                "fillContent": ""
+            }
+        }
+    ]
+}
+
+
+
+
+response_headers
+
+HTTP/1.1 200 OK
+Date: Fri, 31 Dec 2021 16:07:46 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: tgw_l7_route=********************************; Expires=Fri, 31-Dec-2021 17:07:46 GMT; Path=/
+
+
+response_body
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "1001640966866607001500000000001"
+    }
+}
+

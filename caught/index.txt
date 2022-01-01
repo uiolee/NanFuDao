@@ -1,0 +1,42 @@
+https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index
+
+request_headers
+
+GET /ly-pd-mb/form/api/healthCheckIn/client/stu/index HTTP/1.1
+Host: yfd.ly-sky.com
+Connection: keep-alive
+accessToken: ******/+************************************************************************+**********************************************************/**********==
+content-type: application/json
+userAuthType: MS
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/559.2.01 (KHTML, like Gecko) Mobile/12E122 MicroMessenger/7.2.9(0x23684219) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx217628c7eb8ec43c/20/page-frame.html
+
+request_body NULL
+
+response_headers
+
+HTTP/1.1 200 OK
+Date: Fri, 31 Dec 2021 16:06:49 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: tgw_l7_route=********************************; Expires=Fri, 31-Dec-2021 17:06:49 GMT; Path=/
+
+response_body
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "title": "2022-01-01健康上报",
+        "description": "各位同学请认真填写健康打卡，打卡时间为00:00-18:00，已填写请忽略此消息。",
+        "hadFinish": null,
+        "questionnairePublishEntityId": "1001640966400655001540000000001",
+        "fillStartTime": null,
+        "curTimeStamp": null,
+        "hadFill": false,
+        "hadFillUseCache": true
+    }
+}
+

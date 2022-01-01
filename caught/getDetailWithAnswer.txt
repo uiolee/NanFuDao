@@ -1,0 +1,665 @@
+https://yfd.ly-sky.com/ly-pd-mb/form/api/questionnairePublish/1001642694401242005160000000001/getDetailWithAnswer
+
+request_headers
+
+GET /ly-pd-mb/form/api/questionnairePublish/1001642694401242005160000000001/getDetailWithAnswer HTTP/1.1
+Host: yfd.ly-sky.com
+Connection: keep-alive
+accessToken: ******/+************************************************************************+**********************************************************/**********==
+content-type: application/x-www-form-urlencoded
+userAuthType: MS
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/559.2.01 (KHTML, like Gecko) Mobile/12E122 MicroMessenger/7.2.9(0x23684219) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx217628c7eb8ec43c/29/page-frame.html
+
+request_body NULL
+
+response_headers
+
+HTTP/1.1 200 OK
+Date: Fri, 21 Jan 2022 10:48:06 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: tgw_l7_route=********************************; Expires=Fri, 21-Jan-2022 11:48:06 GMT; Path=/
+
+response_body
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "questionnairePublishFillVo": {
+            "questionnairePublishEntityId": "1001642694401242005160000000001",
+            "title": "健康上报",
+            "createUserName": "徐海丽",
+            "curTimeStamp": 1642762086544,
+            "fillStartTime": 1642694400000,
+            "fillEndTime": 1642759200000,
+            "hadFill": true,
+            "helpClockInUserName": null,
+            "hadFillUseCache": true
+        },
+        "questionnaireWithSubjectVo": {
+            "questionnaireVo": {
+                "id": "1001640315554535000980000000001",
+                "title": "健康上报",
+                "description": "各位同学请认真填写健康打卡，打卡时间为00:00-18:00，已填写请忽略此消息。",
+                "limit_fill_body": "Not",
+                "onlyOneNormalAnswer": "Yes",
+                "status": "active",
+                "scene": "MSHealthCheckIn",
+                "tag": null,
+                "noticeDelayAfterPublish": 28800000,
+                "createUserName": "徐海丽",
+                "questionnaireType": "simpleQuestionnaire",
+                "simpleQuestionnaire": {
+                    "frequency": "EveryDay",
+                    "startTime": {
+                        "year": null,
+                        "month": null,
+                        "day": null,
+                        "week": null,
+                        "millisecond": null,
+                        "seconds": null,
+                        "hour": 0,
+                        "minute": 0
+                    },
+                    "endTime": {
+                        "year": null,
+                        "month": null,
+                        "day": null,
+                        "week": null,
+                        "millisecond": null,
+                        "seconds": null,
+                        "hour": 18,
+                        "minute": 0
+                    },
+                    "secondPush": {
+                        "year": null,
+                        "month": null,
+                        "day": null,
+                        "week": null,
+                        "millisecond": null,
+                        "seconds": null,
+                        "hour": 17,
+                        "minute": 0
+                    }
+                },
+                "questionnaireUserList": null,
+                "questionnaireBaseAccessList": null
+            },
+            "subjectList": [{
+                    "id": "1001640315554537000980000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": "default-1",
+                    "tag": null,
+                    "subjectTitle": "关于新冠肺炎，你当前的情况是?",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": null,
+                    "sort": 1000,
+                    "subjectType": "multiSelect",
+                    "simpleFill": null,
+                    "signleSelect": null,
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": {
+                        "options": [{
+                                "sort": null,
+                                "beSelectValue": "NotThing",
+                                "textColor": "#7EC37B",
+                                "text": "无下列情况,身体健康",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": true
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "ToHighRisk",
+                                "textColor": "#FF594F",
+                                "text": "近15日内居住或到过国内中、高风险地区",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "TouchCovid_19",
+                                "textColor": "#FF594F",
+                                "text": "近15日内接触过新冠肺炎确诊者或无症状感染者",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "Fever",
+                                "textColor": "#FF594F",
+                                "text": "发热咳嗽",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "Isolation",
+                                "textColor": "#FF594F",
+                                "text": "医学隔离",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "SuspectedCase",
+                                "textColor": "#FF594F",
+                                "text": "疑似病例",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }, {
+                                "sort": null,
+                                "beSelectValue": "ConfirmedCases",
+                                "textColor": "#FF594F",
+                                "text": "确诊病例",
+                                "fillContent": null,
+                                "imgList": null,
+                                "showSubectAliasWhenSelect": null,
+                                "cannotSelectOther": false
+                            }
+                        ],
+                        "minOptions": null,
+                        "maxOptions": null
+                    },
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640315554577000980000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": "locationSubject",
+                    "tag": null,
+                    "subjectTitle": "您的当前所在地?",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": null,
+                    "sort": 999,
+                    "subjectType": "location",
+                    "simpleFill": null,
+                    "signleSelect": null,
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": {
+                        "locationRange": [{
+                                "locationRangeId": "1001640054768198000150000000001",
+                                "locationRangeName": "广州校区",
+                                "longitude": "113.35413091",
+                                "latitude": "23.091564888",
+                                "effectiveRange": 1000
+                            }, {
+                                "locationRangeId": "1001640309486435000430000000001",
+                                "locationRangeName": "佛山校区",
+                                "longitude": "112.86028",
+                                "latitude": "23.2062",
+                                "effectiveRange": 1000
+                            }
+                        ]
+                    },
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640743741123000960000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "今日是否接触重点疫区人员？（包括直接接触以及间接接触）（单选）",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 998,
+                    "subjectType": "signleSelect",
+                    "simpleFill": null,
+                    "signleSelect": {
+                        "options": [{
+                                "sort": 999,
+                                "beSelectValue": "1",
+                                "textColor": null,
+                                "text": "中高风险地区",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 998,
+                                "beSelectValue": "2",
+                                "textColor": null,
+                                "text": "最近15日自境外返回",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 997,
+                                "beSelectValue": "flag1640743719763",
+                                "textColor": null,
+                                "text": "有接触上述人员",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 996,
+                                "beSelectValue": "flag1640743720931",
+                                "textColor": null,
+                                "text": "无以上情况",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }
+                        ]
+                    },
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640743758116001000000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "今日是否接触确诊新冠肺炎患者？（包括直接接触或联系密切人员间接接触）（单选）",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 997,
+                    "subjectType": "signleSelect",
+                    "simpleFill": null,
+                    "signleSelect": {
+                        "options": [{
+                                "sort": 999,
+                                "beSelectValue": "1",
+                                "textColor": null,
+                                "text": "是",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 998,
+                                "beSelectValue": "2",
+                                "textColor": null,
+                                "text": "否",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }
+                        ]
+                    },
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640743801628001000000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "接触详情（接触重点疫区人员或者新冠肺炎患者填写，无接触填写“无”）（填空）",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 996,
+                    "subjectType": "simpleFill",
+                    "simpleFill": {
+                        "inputContent": {
+                            "sort": null,
+                            "minLength": null,
+                            "maxLength": null,
+                            "placeholder": null,
+                            "inputContentTypes": ["Text"]
+                        }
+                    },
+                    "signleSelect": null,
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640743816621000960000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "需要特别说明的事项（无特别说明填写“无”）（填空）",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 995,
+                    "subjectType": "simpleFill",
+                    "simpleFill": {
+                        "inputContent": {
+                            "sort": null,
+                            "minLength": null,
+                            "maxLength": null,
+                            "placeholder": null,
+                            "inputContentTypes": ["Text"]
+                        }
+                    },
+                    "signleSelect": null,
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640743859737000980000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "\n今日家庭成员健康状况？（单选）",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 994,
+                    "subjectType": "signleSelect",
+                    "simpleFill": null,
+                    "signleSelect": {
+                        "options": [{
+                                "sort": 999,
+                                "beSelectValue": "1",
+                                "textColor": null,
+                                "text": "健康状况正常",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 998,
+                                "beSelectValue": "2",
+                                "textColor": null,
+                                "text": "有发热、咳嗽、呼吸困难等症状",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 997,
+                                "beSelectValue": "flag1640743827573",
+                                "textColor": null,
+                                "text": "家人有密切接触过确诊或疑似新冠肺炎病人",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 996,
+                                "beSelectValue": "flag1640743828430",
+                                "textColor": null,
+                                "text": "家人被诊断为新冠肺炎或疑似新冠肺炎",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }
+                        ]
+                    },
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }, {
+                    "id": "1001640956029680001500000000001",
+                    "tenantId": "ms_48",
+                    "questionnaireEntityId": "1001640315554535000980000000001",
+                    "subjectCatalogId": null,
+                    "subjectAlias": null,
+                    "tag": null,
+                    "subjectTitle": "接种新冠疫苗情况：",
+                    "isMustFill": "Yes",
+                    "isDefaultHidden": "Not",
+                    "markTips": null,
+                    "imgList": [],
+                    "sort": 993,
+                    "subjectType": "signleSelect",
+                    "simpleFill": null,
+                    "signleSelect": {
+                        "options": [{
+                                "sort": 999,
+                                "beSelectValue": "1",
+                                "textColor": null,
+                                "text": "已接种一针剂型腺病毒载体疫苗",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 998,
+                                "beSelectValue": "2",
+                                "textColor": null,
+                                "text": "已接种两针剂型灭活疫苗——第一针",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 997,
+                                "beSelectValue": "flag1640955957514",
+                                "textColor": null,
+                                "text": "已接种两针剂型灭活疫苗——第二针",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 996,
+                                "beSelectValue": "flag1640955958618",
+                                "textColor": null,
+                                "text": "已接种两针剂型灭活疫苗——第三针（加强针）",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 995,
+                                "beSelectValue": "flag1640955974581",
+                                "textColor": null,
+                                "text": "已接种三针剂型重组疫苗——第一针",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 994,
+                                "beSelectValue": "flag1640955976251",
+                                "textColor": null,
+                                "text": "已接种三针剂型重组疫苗——第二针",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 993,
+                                "beSelectValue": "flag1640956000651",
+                                "textColor": null,
+                                "text": "已接种三针剂型重组疫苗——第三针",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }, {
+                                "sort": 992,
+                                "beSelectValue": "flag1640956001875",
+                                "textColor": null,
+                                "text": "尚未接种",
+                                "fillContent": null,
+                                "imgList": [],
+                                "showSubectAliasWhenSelect": [],
+                                "cannotSelectOther": null
+                            }
+                        ]
+                    },
+                    "signleSelectOutSideOptions": null,
+                    "multiSelect": null,
+                    "location": null,
+                    "area": null,
+                    "date": null
+                }
+            ]
+        },
+        "answerInfoList": [{
+                "subjectId": "1001640315554537000980000000001",
+                "subjectType": "multiSelect",
+                "simpleFill": null,
+                "signleSelect": null,
+                "signleSelectOutSideOptions": null,
+                "multiSelect": {
+                    "optionAnswerList": [{
+                            "beSelectValue": "NotThing",
+                            "fillContent": "",
+                            "imgList": null,
+                            "attachmentList": null
+                        }
+                    ]
+                },
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640315554577000980000000001",
+                "subjectType": "location",
+                "simpleFill": null,
+                "signleSelect": null,
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": {
+                    "address": "xx省xx市xx区xx路",
+                    "province": "xx省",
+                    "city": "xx市",
+                    "longitude": "121.0333584687499",
+                    "latitude": "23.842442983598957",
+                    "locationRangeId": "1001640054768198000150000000001",
+                    "deviationDistance": xxx,
+                    "area": "xx区"
+                },
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640743741123000960000000001",
+                "subjectType": "signleSelect",
+                "simpleFill": null,
+                "signleSelect": {
+                    "beSelectValue": "flag1640743720931",
+                    "fillContent": "",
+                    "imgList": null,
+                    "attachmentList": null
+                },
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640743758116001000000000001",
+                "subjectType": "signleSelect",
+                "simpleFill": null,
+                "signleSelect": {
+                    "beSelectValue": "2",
+                    "fillContent": "",
+                    "imgList": null,
+                    "attachmentList": null
+                },
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640743801628001000000000001",
+                "subjectType": "simpleFill",
+                "simpleFill": {
+                    "inputContent": "无",
+                    "imgList": [],
+                    "attachmentList": null
+                },
+                "signleSelect": null,
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640743816621000960000000001",
+                "subjectType": "simpleFill",
+                "simpleFill": {
+                    "inputContent": "无",
+                    "imgList": [],
+                    "attachmentList": null
+                },
+                "signleSelect": null,
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640743859737000980000000001",
+                "subjectType": "signleSelect",
+                "simpleFill": null,
+                "signleSelect": {
+                    "beSelectValue": "1",
+                    "fillContent": "",
+                    "imgList": null,
+                    "attachmentList": null
+                },
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }, {
+                "subjectId": "1001640956029680001500000000001",
+                "subjectType": "signleSelect",
+                "simpleFill": null,
+                "signleSelect": {
+                    "beSelectValue": "flag1640955957514",
+                    "fillContent": "",
+                    "imgList": null,
+                    "attachmentList": null
+                },
+                "signleSelectOutSideOptions": null,
+                "multiSelect": null,
+                "location": null,
+                "area": null,
+                "date": null
+            }
+        ]
+    }
+}
+
