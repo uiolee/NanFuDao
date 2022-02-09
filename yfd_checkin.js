@@ -1,6 +1,7 @@
 /******************
 奕辅导健康打卡QauntumultX脚本
-update:20220121
+理论上支持Surge, Loon, 未测试
+update:20220209
 
 免责声明：
 
@@ -48,7 +49,7 @@ var user_data = "";		//完整的打卡数据body，以字符串方式传入。
 //###########
 
 //以下全局变量，不要改动。
-const lx = QuanX_init();
+const lx = init("奕辅导健康上报");
 const token = "yfd_accessToken";
 const UA = "yfd_User-Agent";
 const data = "yfd_checkin_data";
@@ -58,45 +59,41 @@ var hadFill = "hadFill";
 var header = {};
 
 async function getInfo() {//获取打卡的信息，id每天不一样
-	let a = function() {
-		let url = {
-			url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index",
-			headers: header
+	url = {
+		url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index",
+		headers: header
+	};
+	await lx.get(url, function (err, response, body) {
+		let res = JSON.parse(body);
+		if (res.code === 200) {
+			id = res.data.questionnairePublishEntityId;
+			title = res.data.title;
+			hadFill = res.data.hadFill
 		};
-		return lx.get(url)
-	};
-	let response = await a();
-	let res = JSON.parse(response.body);
-	if (res.code === 200) {
-		id = res.data.questionnairePublishEntityId;
-		title = res.data.title;
-		hadFill = res.data.hadFill
-	};
-	lx.log("getInfo(),code:" + res.code + ",message:" + res.message)
+		lx.log("getInfo(),code:" + res.code + ",message:" + res.message)
+	});
 };
 async function checkIn() {//打卡主体
 	lx.log("checkIn()");
 	dt = JSON.parse(lx.r(data));
 	dt["questionnairePublishEntityId"] = id;//id
 	dt = JSON.stringify(dt);
-	let b = function() {
-		let url = {
-			url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/answerSheet/saveNormal",
-			headers: header,
-			body: dt
-		};
-		return lx.post(url)
+	let url = {
+		url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/answerSheet/saveNormal",
+		headers: header,
+		body: dt
 	};
-	let response = await b();
-	let res = JSON.parse(response.body);
-	lx.log(JSON.stringify(res));
-	if (res.code == 200) {
-		lx.log(title + ",打卡成功,code:" + res.code + ",message:" + res.message);
-		lx.msg(title, "打卡成功", res.code + ":" + res.message)
-	} else {
-		lx.log(title + ",打卡失败,code:" + res.code + ",message:" + res.message);
-		lx.msg(title, "打卡失败", res.code + ":" + res.message)
-	}
+	await lx.post(url, function (err, response, body) {
+		let res = JSON.parse(body);
+		//lx.log(JSON.stringify(res));
+		if (res.code == 200) {
+			lx.log(title + ",打卡成功,code:" + res.code + ",message:" + res.message);
+			lx.msg(title, "打卡成功", res.code + ":" + res.message)
+		} else {
+			lx.log(title + ",打卡失败,code:" + res.code + ",message:" + res.message);
+			lx.msg(title, "打卡失败", res.code + ":" + res.message)
+		}
+	})
 };
 async function main() {
 	lx.log("main()");
@@ -119,7 +116,7 @@ async function main() {
 		"Referer": "https://servicewechat.com/wx217628c7eb8ec43c/20/page-frame.html"
 	}
 	await getInfo();//获取打卡id和打卡状态
-	lx.log("id:"+id+"\ntitle:"+title+"\nhadfill:"+hadFill);	
+	lx.log("id:" + id + "\ntitle:" + title + "\nhadfill:" + hadFill);
 	if (lx.r(data)) {
 		lx.log("打卡数据已存在");
 		if (hadFill) {
@@ -140,7 +137,7 @@ async function main() {
 	};
 	lx.done()
 };
-function getVal() {//获取accessToken和User-Agent，并持久化
+function getToken() {//获取accessToken和User-Agent，并持久化
 	if ($request.headers) {
 		const t = $request.headers["accessToken"];
 		lx.w(t, token);
@@ -153,7 +150,7 @@ function getVal() {//获取accessToken和User-Agent，并持久化
 		lx.done()
 	}
 };
-/* function getSaveNormal() {//获取手动打卡的数据，并持久化
+/* function getSaveNormal() {//抓包手动打卡的数据，并持久化
 	if ($request.body) {
 		const dt = $request.body;
 		lx.w(dt, data);
@@ -164,56 +161,51 @@ function getVal() {//获取accessToken和User-Agent，并持久化
 }; */
 async function getAnswer() {	//获取已打卡的数据，并持久化
 	lx.log("getAnswer()");
-	let c = function () {
-		let url = {
-			url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/questionnairePublish/" + id + "/getDetailWithAnswer",
-			headers: header
-		};
-		url.headers["content-type"] = "application/x-www-form-urlencoded";
-		url.headers["Referer"] = "https://servicewechat.com/wx217628c7eb8ec43c/29/page-frame.html";
-		return lx.get(url)
+	let url = {
+		url: "https://yfd.ly-sky.com/ly-pd-mb/form/api/questionnairePublish/" + id + "/getDetailWithAnswer",
+		headers: header
 	};
-	let response = await c();
-	let res = JSON.parse(response.body);
-	if (res.code == 200) {
-		res = res["data"]["answerInfoList"];
-		var answerInfoList = new Array();
-		for (var x in res) {
-			var obj = {};
-			var subjectType = res[x]["subjectType"];
-			obj["subjectId"] = res[x]["subjectId"];
-			obj["subjectType"] = subjectType;
-			obj[subjectType] = res[x][subjectType];
-			answerInfoList.push(obj);
-			//lx.log(JSON.stringify(obj));
-		};
-		if (answerInfoList.length == 0) {
-			lx.msg("获取打卡数据data失败", "获取到" + answerInfoList.length + "个问题,请手动打卡后重试。", dt);
-			lx.log("获取打卡数据data失败，获取到" + answerInfoList.length + "个问题,请手动打卡后重试。" + dt);
-		} else {
-			var dt = {
-				"questionnairePublishEntityId": id,
-				"answerInfoList": answerInfoList
+	url.headers["content-type"] = "application/x-www-form-urlencoded";
+	url.headers["Referer"] = "https://servicewechat.com/wx217628c7eb8ec43c/29/page-frame.html";
+	await lx.get(url, function (err, response, body) {
+		let res = JSON.parse(body);
+		if (res.code == 200) {
+			res = res["data"]["answerInfoList"];
+			var answerInfoList = new Array();
+			for (var x in res) {
+				var obj = {};
+				var subjectType = res[x]["subjectType"];
+				obj["subjectId"] = res[x]["subjectId"];
+				obj["subjectType"] = subjectType;
+				obj[subjectType] = res[x][subjectType];
+				answerInfoList.push(obj);
+				//lx.log(JSON.stringify(obj));
 			};
-			dt = JSON.stringify(dt);
-			lx.w(dt, data);
-			lx.msg("获取打卡数据data成功", "获取到" + answerInfoList.length + "个问题", dt);
-			lx.log("获取打卡数据data成功，获取到" + answerInfoList.length + "个问题。" + dt);
-		};
-	} else {
-		lx.log("获取打卡数据data失败，code:" + res.code + ",message:" + res.message);
-		lx.msg("获取打卡数据data失败", res.code + ":" + res.message);
-	};
+			if (answerInfoList.length == 0) {
+				lx.msg("获取打卡数据data失败", "获取到" + answerInfoList.length + "个问题,请手动打卡后重试。", dt);
+				lx.log("获取打卡数据data失败，获取到" + answerInfoList.length + "个问题,请手动打卡后重试。" + dt);
+			} else {
+				var dt = {
+					"questionnairePublishEntityId": id,
+					"answerInfoList": answerInfoList
+				};
+				dt = JSON.stringify(dt);
+				lx.w(dt, data);
+				lx.msg("获取打卡数据data成功", "获取到" + answerInfoList.length + "个问题", dt);
+				lx.log("获取打卡数据data成功，获取到" + answerInfoList.length + "个问题。" + dt);
+			};
+		} else {
+			lx.log("获取打卡数据data失败，code:" + res.code + ",message:" + res.message);
+			lx.msg("获取打卡数据data失败", res.code + ":" + res.message);
+		}
+	})
 };
 function start() {
-	const isRequest = typeof $request != "undefined";
-	if (isRequest) {
-		const isPost = $request.method == "POST";
-		const isGet = $request.method == "GET";
-		if (isGet) {
-			getVal()//获取accessToken和User-Agent
+	if (lx.isRequest()) {
+		if (lx.isGet()) {
+			getToken()//获取accessToken和User-Agent
 		};
-		if (isPost) {
+		if (lx.isPost()) {
 			//getSaveNormal()//获取手动打卡的数据
 			lx.done()
 		} else {
@@ -222,40 +214,104 @@ function start() {
 	};
 	main()
 };
-function QuanX_init() {
-	const msg = function(title, subtitle, body) {
-		return $notify(title, subtitle, body)
+function init(name) {
+	const startTime = new Date().getTime();
+	const isRequest = function () { return "undefined" !== typeof $request };
+	const isResponse = function () { return "undefined" !== typeof $response };
+	const isPost = function () { return "POST" === $request.method };
+	const isGet = function () { return "GET" === $request.method };
+	const isNode = function () { return 'undefined' !== typeof module && !!module.exports };
+	const isQuanX = function () { return 'undefined' !== typeof $task };
+	const isSurge = function () { return 'undefined' !== typeof $httpClient && 'undefined' === typeof $loon };
+	const isLoon = function () { return 'undefined' !== typeof $loon };
+	const toObj = function (str, defaultValue = null) {
+		try {
+			return JSON.parse(str)
+		} catch {
+			return defaultValue
+		}
 	};
-	const log = function(message) {
-		return console.log(message)
+	const toStr = function (obj, defaultValue = null) {
+		try {
+			return JSON.stringify(obj)
+		} catch {
+			return defaultValue
+		}
 	};
-	const get = function(url) {
-		url.method = 'GET';
-		return $task.fetch(url)
+	const msg = function (title, subtitle = '', desc = '') {
+		if (isQuanX()) {
+			$notify(title, subtitle, desc)
+		} else if (isSurge() || isLoon()) {
+			$notification.post(title, subtitle, desc)
+		}
 	};
-	const post = function(url) {
-		url.method = 'POST';
-		return $task.fetch(url)
+	const log = function (...logs) {
+		if (logs.length > 0) {
+			logs = [...logs]
+		};
+		console.log(logs.join("\n"))
 	};
-	const done = function() {
-		return $done()
+	const get = async function (opts, callback) {
+		if (isSurge() || isLoon()) {
+			await $httpClient.get(opts, function (err, res, body) {
+				if (!err && res) {
+					res.body = body;
+					res.statusCode = res.status
+				};
+				callback(err, res, body)
+			})
+		} else if (isQuanX()) {
+			opts.method = "GET";
+			await $task.fetch(opts).then(function (res) {
+				const { statusCode: status, statusCode, headers, body } = res;
+				callback(null, { status, statusCode, headers, body }, body)
+			}, function (err) { callback(err) })
+		}
 	};
-	const fetch = $task.fetch;
-	const r = function(key) {
-		return $prefs.valueForKey(key)
+	const post = async function (opts, callback = function () { }) {
+		if (isSurge() || isLoon()) {
+			await $httpClient.post(opts, function (err, res, body) {
+				if (!err && res) {
+					res.body = body;
+					res.statusCode = res.status
+				};
+				callback(err, res, body)
+			})
+		} else if (isQuanX()) {
+			opts.method = "POST";
+			await $task.fetch(opts).then(function (res) {
+				const { statusCode: status, statusCode, headers, body } = res;
+				callback(null, { status, statusCode, headers, body }, body)
+			}, function (err) { callback(err) })
+		}
 	};
-	const w = function(val, key) {
-		return $prefs.setValueForKey(val, key)
+	const r = function (key) {
+		if (isQuanX()) {
+			return $prefs.valueForKey(key)
+		} else if (isSurge() || isLoon()) {
+			return $persistentStore.read(key)
+		}
 	};
-	return {
-		msg,
-		log,
-		get,
-		post,
-		done,
-		fetch,
-		r,
-		w
-	}
+	const w = function (val, key) {
+		if (isQuanX()) {
+			return $prefs.setValueForKey(val, key)
+		} else if (isSurge() || isLoon()) {
+			return $persistentStore.write(val, key)
+		}
+	};
+	const wait = function (time) {
+		return new Promise(function (resolve) {
+			setTimeout(resolve, time)
+		})
+	};
+	const done = function (val = {}) {
+		const endTime = new Date().getTime();
+		const costTime = (endTime - startTime) / 1000;
+		log(name + " 结束运行，耗时：" + costTime);
+		if (isQuanX() || isSurge() || isLoon()) {
+			$done(val)
+		}
+	};
+	return { msg, log, get, post, done, r, w, wait, toObj, toStr, isLoon, isNode, isQuanX, isSurge, isRequest, isResponse, isPost, isGet };
 };
 start();
