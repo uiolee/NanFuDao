@@ -1,0 +1,39 @@
+applyStatus
+
+0 已撤回
+1 待审批
+2 不通过
+3 已通过
+4 休假中
+5 已逾期
+
+status  (Approver)
+
+1 待审批
+2 不通过
+3 已通过
+
+
+oaType
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": [{
+            "oaType": 1,
+            "desc": "请假"
+        }, {
+            "oaType": 2,
+            "desc": "外出"
+        }, {
+            "oaType": 3,
+            "desc": "离校"
+        }, {
+            "oaType": 4,
+            "desc": "留校"
+        }, {
+            "oaType": 5,
+            "desc": "返校"
+        }
+    ]
+}

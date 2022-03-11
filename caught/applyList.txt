@@ -1,0 +1,63 @@
+https://yfd.ly-sky.com/ly-ms/application/api/oa/applyList
+
+request_headers
+
+POST /ly-ms/application/api/oa/applyList HTTP/1.1
+Host: yfd.ly-sky.com
+Connection: keep-alive
+Content-Length: 72
+accessToken: ******/+************************************************************************+**********************************************************/**********==
+content-type: application/json
+userAuthType: MS
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/559.2.01 (KHTML, like Gecko) Mobile/12E122 MicroMessenger/7.2.9(0x23684219) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx217628c7eb8ec43c/39/page-frame.html
+
+request_body
+
+{"page":1,"pageSize":10,"oaTypes":[1,2],"recordStatus":[0,1,2,3,4,5,99]}
+
+response_headers
+
+HTTP/1.1 200 OK
+Date: Sun, 27 Feb 2022 03:48:52 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: tgw_l7_route=********************************; Expires=Sun, 27-Feb-2022 04:48:52 GMT; Path=/
+
+response_body
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": [{
+            "id": " $ applyRecordId $ ",
+            "oaType": 1,
+            "reason": "请假",
+            "beginTime": 1640970061000,
+            "endTime": 1640970061000,
+            "recordStatus": 4,
+            "leaveIntroVo": null,
+            "now": null
+        }, {
+            "id": " $ applyRecordId $ ",
+            "oaType": 1,
+            "reason": "不想上学了",
+            "beginTime": 1640970061000,
+            "endTime": 1640970061000,
+            "recordStatus": 2,
+            "leaveIntroVo": null,
+            "now": null
+        }, {
+            "id": " $ applyRecordId $ ",
+            "oaType": 2,
+            "reason": "外出",
+            "beginTime": 1640970061000,
+            "endTime": 1640970061000,
+            "recordStatus": 5,
+            "leaveIntroVo": null,
+            "now": null
+        }
+    ]
+}

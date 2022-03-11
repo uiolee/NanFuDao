@@ -1,0 +1,91 @@
+https://yfd.ly-sky.com/ly-ms/application/api/oa/detail/ $ applyRecordId $ 
+
+request_headers
+
+POST /ly-ms/application/api/oa/detail/ $ applyRecordId $  HTTP/1.1
+Host: yfd.ly-sky.com
+Connection: keep-alive
+Content-Length: 0
+accessToken: ******/+************************************************************************+**********************************************************/**********==
+content-type: application/json
+userAuthType: MS
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/559.2.01 (KHTML, like Gecko) Mobile/12E122 MicroMessenger/7.2.9(0x23684219) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx217628c7eb8ec43c/39/page-frame.html
+
+request_body NULL
+
+response_headers
+
+HTTP/1.1 200 OK
+Date: Sun, 27 Feb 2022 03:48:56 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: tgw_l7_route=********************************; Expires=Sun, 27-Feb-2022 04:48:56 GMT; Path=/
+
+response_body
+
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "askForLeaveDetail": {
+            "applyRecordId": " $ applyRecordId $ ",
+            "applyUserId": " $ applyUserId $ ",
+            "applyProxy": false,
+            "applyStatus": 4,
+            "parentsKnow": false,
+            "emergencyContactPhone": " $ emergencyContactPhone $ ",
+            "classesManagerPhone": " $ classesManagerPhone $ ",
+            "lastApproverPhone": " $ lastApproverPhone $ ",
+            "chains": [{
+                    "applicant": true,
+                    "userName": " $ userName $ ",
+                    "avatar": " $ UserId $ ",
+                    "status": -99,
+                    "time": "2022-02-27 11:27",
+                    "message": "",
+                    "className": " $ className $ ",
+                    "blzzr": false
+                }, {
+                    "applicant": false,
+                    "userName": " $ ApproverUserName $ ",
+                    "avatar": " $ ApproverUserId $ ",
+                    "status": 3,
+                    "time": "2022-02-27 11:46",
+                    "message": "",
+                    "className": null,
+                    "blzzr": false
+                }
+            ],
+            "delayDetails": [],
+            "beginTime": 1640970061000,
+            "endTime": 1640970061000,
+            "alias": "事假",
+            "leaveSchool": true,
+            "location": "北门",
+            "reason": "世界那么大，我想去看看",
+            "imgList": [],
+            "documentList": [],
+            "extentTime": 0,
+            "leaveOffProve": false,
+            "leaveOffDesc": "",
+            "leaveOffLatLon": null,
+            "leaveOffImgList": null,
+            "leaveOffTime": null,
+            "recordUserInfo": {
+                "userId": " $ userId $ ",
+                "userName": " $ userName $ ",
+                "className": " $ className $ ",
+                "avatar": " $ userId $ "
+            }
+        },
+        "goOutDetail": null,
+        "leaveDetail": null,
+        "stayDetail": null,
+        "backDetail": null,
+        "reportDetail": null
+    }
+}
+
