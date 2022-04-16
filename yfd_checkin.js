@@ -16,7 +16,7 @@ update:20220209
 
 使用方法：
 1、事先在小程序上手动完成一次打卡（无需使用脚本，无需开启Quantumult X）。
-2、启用rewrite和mitm功能，并设置好规则。开启QuantumultX，打开健康打卡，脚本自动获取accessToken和UA。
+2、启用rewrite和mitm功能，并设置好规则。开启QuantumultX，打开小程序健康打卡，脚本自动获取accessToken和UA。
 3、手动运行脚本，脚本会自动获取已打卡的数据并保存。
 4、配置Quantumult X的task功能或者ios的自动化快捷指令，实现每天自动打卡。
 （5、脚本正常运行后，可关闭rewrite，避免使用正常小程序时，脚本反复运行。）
@@ -140,13 +140,11 @@ async function main() {
 function getToken() {//获取accessToken和User-Agent，并持久化
 	if ($request.headers) {
 		const t = $request.headers["accessToken"];
-		lx.w(t, token);
-		lx.msg("获取accessToken成功", "", t);
-		lx.log("获取accessToken成功" + t);
 		const ua = $request.headers["User-Agent"];
+		lx.w(t, token);
 		lx.w(ua, UA);
-		lx.msg("获取User-Agent成功", "", ua);
-		lx.log("获取User-Agent成功" + ua);
+		lx.msg("获取token, UA", "token: " + t, "UA: " + ua);
+		lx.log("token: " + t + "\nUA: " + ua);
 		lx.done()
 	}
 };

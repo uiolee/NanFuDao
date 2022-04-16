@@ -8,13 +8,12 @@
     - [0. 手动完成当天的打卡](#0-手动完成当天的打卡)
     - [1. Quantumult X](#1-quantumult-x)
     - [2. 配置QuantumultX](#2-配置quantumultx)
-    - [3. 自动抓取数据](#3-自动抓取数据)
-    - [4. 运行一次脚本以获取打卡数据](#4-运行一次脚本以获取打卡数据)
+    - [3. 抓取token和UA](#3-抓取token和UA)
+    - [4. 抓取打卡数据](#4-抓取打卡数据)
     - [5. 自动运行（可选）](#5-自动运行可选)
     - [6. 正常运行](#6-正常运行)
     - [7. 更新数据](#7-更新数据)
-  - [使用方法（二）手动抓包](#使用方法二手动抓包)
-  - [多账户打卡](#多账户打卡)
+  - [使用方法（二）手动配置](#使用方法二手动配置)
   - [Todo](#todo)
 
 ## **！免责声明！**
@@ -47,9 +46,7 @@
 （用途：点击健康打卡时，获取`accessToken`）
 ```
  脚本: yfd_checkin.js
-
  类型: script-request-header
-
  url: https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index
 ```
 
@@ -73,13 +70,13 @@ hostname = yfd.ly-sky.com
 5 0 * * * yfd_checkin.js, tag=奕辅导, enabled=true
 ```
 
-### 3. 自动抓取数据
+### 3. 抓取token和UA
 
 配置好rewrite和mitm，启动QuantumultX
 
 小程序中点击健康打卡图标，脚本会获取`accessToken`和`UA`并保存。
 
-### 4. 运行一次脚本以获取打卡数据
+### 4. 抓取打卡数据
 （无需rewrite和mitm，无需开启Quantumult X）
 在`accessToken`配置正确且已完成完成手动打卡的情况下，手动执行脚本即可获取打卡所需要提交的数据。
 
@@ -91,43 +88,26 @@ hostname = yfd.ly-sky.com
 
 ### 6. 正常运行
 
-- 当脚本可以正常运行后，建议关闭rewirte和mitm，避免影响正常使用。
+- 当脚本可以正常运行后，建议关闭rewirte，避免影响正常使用。
 
 ### 7. 更新数据
-- 当`accessToken`失效时，重新执行步骤[3. 自动抓取数据](#3-自动抓取数据)。
-- 当问卷问题失效时，配置脚本中第43行，[yfd_checkin.js#L43](./yfd_checkin.js#L43)为true，重新执行步骤[4. 运行一次脚本以获取打卡数据](#4-运行一次脚本以获取打卡数据)。
+- 当`accessToken`失效时，重新执行步骤[3. 抓取token和UA](#3-抓取token和UA)。
+- 当问卷问题失效时，配置脚本中第43行，[yfd_checkin.js#L43](./yfd_checkin.js#L43)为true，重新执行步骤[4. 抓取打卡数据](#4-抓取打卡数据)。
 ```JavaScript
 //###########	Config		####################
 
 var clear_data = false;	//当为true时，清除已保存的打卡数据，重新获取。默认值应为false
 ```
 
-## 使用方法（二）手动抓包
+## 使用方法（二）手动配置
 
-需要自己学习抓包。如无特殊需要不建议使用。
+代码46-48行，手动配置数据，并持久化存储
 
-适合调试使用或者无rewrite和mitm，或者自定义打卡数据。
-
-该方法相当自由，可以手动配置`accessToken`和`UA`，让脚本自动获取打卡数据。
-
-也可以全部数据都手动配置。
-
-有需要的人自行折腾，这里不赘述。
-
-## 多账户打卡
-
-本脚本的初衷是自用，不会考虑加入多账户打卡的功能。
-
-不过笔者可以提供一个简单的思路，有需要的人自行折腾
-
-1. 将脚本复制多份。
-2. 修改每份脚本的三个全局常量，以此类推，每份脚本不重复即可。
 ```JavaScript
-const token = "yfd_accessToken_1";
-const UA = "yfd_User-Agent_1";
-const data = "yfd_checkin_data_1";
+var user_token = "";	//accessToken
+var user_UA = "";		//User-Agent
+var user_data = "";		//完整的打卡数据body，以字符串方式传入。
 ```
-3. 通过自动抓包或手动抓包的方式，配置每个账号的数据。
 
 ## 致谢
 
@@ -139,7 +119,7 @@ const data = "yfd_checkin_data_1";
  - [x] 适配Surge, Loon
  - [ ] 生成一定范围内的随机位置数据，避免被识别
 
- [回到顶部](#readme)
+ [回到顶部](#)
 
 ----------------
 
