@@ -1,0 +1,27 @@
+{
+  "name": "nanfudao",
+  "version": "1.0.0",
+  "description": ">理论上支持Quantumult X, Surge, Loon. 仅在Quantumult X上测试。",
+  "main": "null.js",
+  "private": "true",
+  "directories": {
+
+  },
+  "scripts": {
+    "eslint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "author": "uiolee",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/"
+  },
+  "homepage": "https://github.com/",
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

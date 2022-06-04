@@ -1,6 +1,10 @@
 # 奕辅导 Quantumult X 脚本
 >理论上支持Quantumult X, Surge, Loon. 仅在Quantumult X上测试。
 
+Python脚本：https://github.com/zimin9/YiFuDaoPuncher
+
+JavaScript云函数：https://github.com/Chorer/YiFuDaoChecker-cloudFunction
+
   - [**！免责声明！**](#免责声明)
   - [说明](#说明)
     - [2022-02-09更新](#2022-02-09更新)
