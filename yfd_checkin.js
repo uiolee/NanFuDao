@@ -27,7 +27,7 @@ update:20220209
 
 [rewrite_local]
 #重写规则，点击健康打卡时，自动获取accessToken和User-Agent
-https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index url script-request-header yfd_checkin.js
+https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/student/indexVo url script-request-header yfd_checkin.js
 
 [mitm]
 hostname = yfd.ly-sky.com
@@ -38,32 +38,34 @@ hostname = yfd.ly-sky.com
 
 ******************/
 
-//###########	Config		####################
+//###########   Config  ####################
 
 const clear_data = false; //当为true时，清除已保存的打卡数据，重新获取。默认值应为false
+const retryNum = 3;//getInfo重试次数
 
-//###########	手动设置数据并持久化，如无需要请勿改动。(方便调试,或无rewrite和mitm)
+//###########   手动设置数据并持久化，如无需要请勿改动。(方便调试,或无rewrite和mitm)
 const user_token = ''; //accessToken
 const user_UA = ''; //User-Agent
 const user_data = ''; //完整的打卡数据body，以字符串方式传入。
 //###########
 
-//以下全局变量，不要改动。
+//以下全局变量，不要改动。除非你知道你在做什么
 const lx = init('奕辅导健康上报');
 const token = 'yfd_accessToken';
 const UA = 'yfd_User-Agent';
 const data = 'yfd_checkin_data';
-var retry = 3;//getInfo重试次数
+var retry = retryNum;
 var id = null; //questionnairePublishEntityId
 var title = 'title';
 var hadFill = 'hadFill';
+var description = 'description';
 var header = {};
 
 async function getInfo() {
     //获取打卡的信息，id每天不一样
-    retry = retry - 1;
+    retry -= 1;
     let url = {
-        url: 'https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index',
+        url: 'https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/student/indexVo',
         headers: header,
     };
     await lx.get(url, function (err, response, body) {
@@ -72,15 +74,41 @@ async function getInfo() {
             id = res.data.questionnairePublishEntityId;
             title = res.data.title;
             hadFill = res.data.hadFill;
+            description = res.data.description;
         }
         lx.log('getInfo(), code:' + res.code + ', message:' + res.message + ', retry:' + retry);
     });
 }
+/* function getDistance(lat1, lng1, lat2, lng2) {
+    console.log(lat1, lng1, lat2, lng2);
+    var radLat1 = lat1 * Math.PI / 180.0;
+    var radLat2 = lat2 * Math.PI / 180.0;
+    var a = radLat1 - radLat2;
+    var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    return s;  // 单位千米
+} */
+async function locFilter(dt) {
+    var loc;
+    let list = dt.answerInfoList;
+    for (var l of list) {
+        if ('location' in l) {
+            loc = l.location;
+            break;
+        }
+    }
+    if (loc) {
+        lx.log(`${loc.province},${loc.city},${loc.area},${loc.street},${loc.address}\n经度${loc.longitude}纬度${loc.latitude}\n距离${loc.deviationDistance}\n`);
+    }
+    return loc;
+}
 async function checkIn() {
     //打卡主体
-    lx.log('checkIn()');
     let dt = JSON.parse(lx.r(data));
     dt['questionnairePublishEntityId'] = id; //id
+    await locFilter(dt);
     dt = JSON.stringify(dt);
     let url = {
         url: 'https://yfd.ly-sky.com/ly-pd-mb/form/api/answerSheet/saveNormal',
@@ -89,26 +117,24 @@ async function checkIn() {
     };
     await lx.post(url, function (err, response, body) {
         let res = JSON.parse(body);
-        //lx.log(JSON.stringify(res));
-        if (res.code == 200) {
-            lx.log(title + ',打卡成功,code:' + res.code + ',message:' + res.message);
+        if (res.code === 200) {
+            lx.log('checkIn(),' + title + ',打卡成功,code:' + res.code + ',message:' + res.message);
             lx.msg(title, '打卡成功', res.code + ':' + res.message);
         } else {
-            lx.log(title + ',打卡失败,code:' + res.code + ',message:' + res.message);
+            lx.log('checkIn(),' + title + ',打卡失败,code:' + res.code + ',message:' + res.message);
             lx.msg(title, '打卡失败', res.code + ':' + res.message);
         }
     });
 }
 async function main() {
     lx.log('main()');
-    //lx.msg("奕辅导健康打卡QauntumultX", "", "");
     if (clear_data) {
         lx.w('', data);
         lx.log('打卡数据已清除');
     }
-    if (user_token) lx.w(user_token, token);
-    if (user_UA) lx.w(user_UA, UA);
-    if (user_data) lx.w(user_data, data);
+    if (user_token) {lx.w(user_token, token);}
+    if (user_UA) {lx.w(user_UA, UA);}
+    if (user_data) {lx.w(user_data, data);}
     header = {
         Host: 'yfd.ly-sky.com',
         Connection: 'keep-alive',
@@ -119,14 +145,14 @@ async function main() {
         'content-type': 'application/json',
         Referer: 'https://servicewechat.com/wx217628c7eb8ec43c/20/page-frame.html',
     };
-    while (id === null && retry >= 0) {
+    while (id === null && retry > 0) {
         await getInfo(); //获取打卡id和打卡状态
     }
-    lx.log('id: ' + id + '\ntitle: ' + title + '\nhadfill: ' + hadFill);
+    lx.log(`id: ${id}\nhadFill: ${hadFill}\ntitle: ${title}\ndescription: ${description}\n`);
     if (lx.r(data)) {
         lx.log('打卡数据已存在');
         if (hadFill) {
-            lx.log(title + '今天已打卡');
+            lx.log(title + ' 今天已打卡');
             lx.msg(title, '', '今天已打卡');
         } else {
             await checkIn(); //执行打卡
@@ -155,15 +181,16 @@ function getToken() {
         lx.done();
     }
 }
-/* function getSaveNormal() {//抓包手动打卡的数据，并持久化
-	if ($request.body) {
-		const dt = $request.body;
-		lx.w(dt, data);
-		lx.msg("获取data成功", "", dt);
-		lx.log("获取data成功" + dt);
-		lx.done()
-	}
-}; */
+/* function getSaveNormal() {
+    //抓包手动打卡的数据，并持久化
+    if ($request.body) {
+        const dt = $request.body;
+        lx.w(dt, data);
+        lx.msg('获取data成功', '', dt);
+        lx.log('获取data成功' + dt);
+        lx.done();
+    }
+} */
 async function getAnswer() {
     //获取已打卡的数据，并持久化
     lx.log('getAnswer()');
@@ -175,7 +202,7 @@ async function getAnswer() {
     url.headers['Referer'] = 'https://servicewechat.com/wx217628c7eb8ec43c/29/page-frame.html';
     await lx.get(url, function (err, response, body) {
         let res = JSON.parse(body);
-        if (res.code == 200) {
+        if (res.code === 200) {
             res = res['data']['answerInfoList'];
             var answerInfoList = new Array();
             for (var x in res) {
@@ -187,7 +214,7 @@ async function getAnswer() {
                 answerInfoList.push(obj);
                 //lx.log(JSON.stringify(obj));
             }
-            if (answerInfoList.length == 0) {
+            if (answerInfoList.length === 0) {
                 lx.msg('获取打卡数据data失败', '获取到' + answerInfoList.length + '个问题,请手动打卡后重试。', dt);
                 lx.log('获取打卡数据data失败，获取到' + answerInfoList.length + '个问题,请手动打卡后重试。' + dt);
             } else {

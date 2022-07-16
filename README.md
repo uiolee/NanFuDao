@@ -32,6 +32,14 @@ JavaScript云函数：https://github.com/Chorer/YiFuDaoChecker-cloudFunction
 
 - 理论上支持Surge, Loon, 但未测试
 
+### 2022-06-**更新
+
+- 增加重试机制，降低因网络繁忙无法获取`questionnairePublishEntityId`的几率。实在不行就多运行几次呗[yfd_checkin.js#L44](./yfd_checkin.js#L44)
+
+### 2022-07-16更新
+
+- 更新健康打卡页面接口，按[2. 配置QuantumultX](#2-配置quantumultx)重新配置rewrite规则。
+
 ## 使用方法（一）软件自动抓包（推荐）
 
 ### 0. 手动完成当天的打卡
@@ -51,9 +59,10 @@ JavaScript云函数：https://github.com/Chorer/YiFuDaoChecker-cloudFunction
 ```
  脚本: yfd_checkin.js
  类型: script-request-header
- url: https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index
+ url: https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/student/indexVo
 ```
 
+~~url: https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index~~
 
 #### 添加mitim主机名：
 ```
@@ -64,7 +73,7 @@ JavaScript云函数：https://github.com/Chorer/YiFuDaoChecker-cloudFunction
 ```
 [rewrite_local]
 #重写规则，点击健康打卡时，自动获取accessToken和User-Agent
-https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/stu/index url script-request-header yfd_checkin.js
+https://yfd.ly-sky.com/ly-pd-mb/form/api/healthCheckIn/client/student/indexVo url script-request-header yfd_checkin.js
 
 [mitm]
 hostname = yfd.ly-sky.com
@@ -121,7 +130,7 @@ var user_data = "";		//完整的打卡数据body，以字符串方式传入。
 
  - [x] 实现自动抓取“已打卡”的数据，而不是手动打卡的数据
  - [x] 适配Surge, Loon
- - [ ] 生成一定范围内的随机位置数据，避免被识别
+ - [ ] ~~生成一定范围内的随机位置数据，避免被识别~~（由于`deviationDistance`计算结果与服务端返回的不一致，这似乎没有意义）
 
  [回到顶部](#)
 
